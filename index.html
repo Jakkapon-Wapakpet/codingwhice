@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>พ่อมดโค้ดดิ้ง | The Coding Oracle</title>
+    <meta name="description" content="ทำนายดวงชะตาชีวิตโปรแกรมเมอร์ การงาน การแก้บั๊ก และทำนายดวงรายวันด้วยจิตวิญญาณแห่งการคอมไพล์">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Mitr:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Canvas for Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="magic-glow-orb"></div>
+                <i class="fa-solid fa-wand-magic-sparkles magic-icon"></i>
+                <h1>พ่อมดโค้ดดิ้ง</h1>
+                <span class="sub-logo">&lt;The Coding Oracle /&gt;</span>
+            </div>
+            <p class="subtitle">หยั่งรู้ชะตากรรมแห่งรันไทม์ ทำนายบั๊ก และหนทางสู่การรวบรวมรหัสลับไร้ที่ติ</p>
+            
+            <!-- Audio Toggle & Retro Sound Status -->
+            <button id="sound-toggle" class="sound-btn" aria-label="Toggle Sound">
+                <i class="fa-solid fa-volume-xmark"></i> <span>เปิดเสียงเวทมนตร์</span>
+            </button>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="oracle-tabs">
+            <button class="tab-link active" data-tab="tarot-tab">
+                <i class="fa-solid fa-id-card"></i> การ์ดทำนายดวง
+            </button>
+            <button class="tab-link" data-tab="horoscope-tab">
+                <i class="fa-solid fa-code"></i> ดวงตามภาษาโปรแกรม
+            </button>
+            <button class="tab-link" data-tab="crystal-tab">
+                <i class="fa-solid fa-circle-nodes"></i> ลูกแก้วบั๊กวิเศษ
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="oracle-main-content">
+
+            <!-- TAB 1: Tarot Cards -->
+            <section id="tarot-tab" class="tab-content active-content">
+                <div class="section-intro">
+                    <h2>ดวงรันไทม์วันนี้ของคุณเป็นอย่างไร?</h2>
+                    <p>เลือกไพ่ 1 ใบ เพื่อค้นหาว่าทักษะ โค้ดดิ้ง และการงานของคุณจะรุ่งโรจน์หรือจะระเบิดเป็น Stack Overflow ในวันนี้</p>
+                </div>
+                
+                <!-- Deck Area -->
+                <div class="deck-container">
+                    <div class="deck-cards">
+                        <!-- 3 Cards representing choice -->
+                        <div class="magic-card-back" data-card-index="0">
+                            <div class="card-pattern">
+                                <div class="inner-pattern">
+                                    <i class="fa-solid fa-hat-wizard"></i>
+                                    <span>{ ? }</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="magic-card-back" data-card-index="1">
+                            <div class="card-pattern">
+                                <div class="inner-pattern">
+                                    <i class="fa-solid fa-hat-wizard"></i>
+                                    <span>{ ? }</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="magic-card-back" data-card-index="2">
+                            <div class="card-pattern">
+                                <div class="inner-pattern">
+                                    <i class="fa-solid fa-hat-wizard"></i>
+                                    <span>{ ? }</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Modal Overlay (Inside component for sleek display) -->
+                <div id="card-result-modal" class="modal-overlay hidden">
+                    <div class="modal-card">
+                        <button id="close-result" class="close-btn">&times;</button>
+                        <div class="modal-body">
+                            <div class="card-reveal-container">
+                                <!-- The 3D Flip Card -->
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <div class="card-glow"></div>
+                                        <div class="card-front-content">
+                                            <div class="card-header-symbol">
+                                                <i id="result-card-icon" class="fa-solid fa-bug"></i>
+                                            </div>
+                                            <h3 id="result-card-title">THE BUG</h3>
+                                            <div class="card-illustration">
+                                                <!-- Dynamic SVG / Visuals inside js -->
+                                                <div id="card-svg-container"></div>
+                                            </div>
+                                            <div class="card-type-tag" id="result-card-type">WARNING</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Detailed Text Explanation -->
+                            <div class="card-interpretation">
+                                <div class="oracle-badge">คำทำนายจากพ่อมด</div>
+                                <h4 id="result-headline">มีบั๊กตัวใหญ่รอการข้ามผ่าน</h4>
+                                <div class="prediction-text" id="result-description">
+                                    เตรียมตัวให้ดี วันนี้บั๊กที่หลบซ่อนมาเป็นเวลานานกำลังจะเผยตัวเมื่อคุณทำการเมิร์จเข้าสู่เซิร์ฟเวอร์โปรดักชัน
+                                </div>
+                                <div class="prediction-stats">
+                                    <div class="stat-item">
+                                        <span class="label">ระดับความปัง:</span>
+                                        <div class="bar"><div class="fill" id="stat-luck" style="width: 50%;"></div></div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="label">ระดับบั๊กคุกคาม:</span>
+                                        <div class="bar"><div class="fill danger" id="stat-bugs" style="width: 20%;"></div></div>
+                                    </div>
+                                </div>
+                                <div class="lucky-tips">
+                                    <strong>เคล็ดวิชาแก้กรรม:</strong> <span id="result-tip">ควรกดเซฟโค้ดทุกๆ 10 วินาที และจิบกาแฟดำเพื่อขับไล่พลังงานชั่วร้าย</span>
+                                </div>
+                                <button id="try-again-cards" class="action-btn">จั่วใหม่อีกครั้ง</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Programming Language Horoscope -->
+            <section id="horoscope-tab" class="tab-content">
+                <div class="section-intro">
+                    <h2>ทำนายดวงตามภาษาเขียนโปรแกรมหลักของคุณ</h2>
+                    <p>ภาษาที่คุณเลือกใช้วันนี้ส่งผลต่ออนาคตการคอมไพล์ รัศมีเวทมนตร์ของโค้ดเดอร์จะส่องประกายอย่างไร?</p>
+                </div>
+
+                <div class="lang-selector-container">
+                    <div class="form-group">
+                        <label for="lang-select">เลือกภาษาเขียนโปรแกรมที่คุณรัก/ใช้บ่อย:</label>
+                        <div class="custom-select-wrapper">
+                            <select id="lang-select" class="magic-select">
+                                <option value="" disabled selected>-- เลือกภาษาเวทมนตร์ของคุณ --</option>
+                                <option value="javascript">JavaScript (มนต์ดำขยายร่างไว ไร้ขอบเขต)</option>
+                                <option value="python">Python (คาถาเสกปูมหลังสะอาดตา ปราบงูเงี้ยว)</option>
+                                <option value="go">Go (เวทมนตร์ย่นเวลา แข็งแกร่งดั่งโกเลม)</option>
+                                <option value="rust">Rust (เกราะเหล็กไหลต้านสัจธรรมรันไทม์พัง)</option>
+                                <option value="java">Java (คัมภีร์ดึกดำบรรพ์ พลังยิ่งใหญ่ช้าแต่ชัวร์)</option>
+                                <option value="cpp">C++ (ดาบสองคมสุดแกร่ง คุมสติไม่อยู่แทงตัวเอง)</option>
+                                <option value="php">PHP (คาถาสามัญประจำบ้าน ทนแดดทนฝนไม่วันตาย)</option>
+                                <option value="typescript">TypeScript (เวทชุบตัว JavaScript ให้สูงส่ง)</option>
+                                <option value="csharp">C# (มนตร์ตระกูลฟ้า ยิ่งใหญ่ใต้เงาจักรวรรดิ)</option>
+                                <option value="htmlcss">HTML/CSS (จอมดีไซเนอร์ เสกความงามสะกดวิญญาณ)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="view-horoscope-btn" class="magic-btn disabled" disabled>
+                        <i class="fa-solid fa-hat-wizard"></i> อ่านคำทำนายวิถีโค้ด
+                    </button>
+                </div>
+
+                <!-- Horoscope Result -->
+                <div id="horoscope-result" class="horoscope-result-box hidden">
+                    <div class="lang-glow-header">
+                        <div class="lang-icon-wrapper">
+                            <i id="lang-result-icon" class="fa-brands fa-js"></i>
+                        </div>
+                        <h3 id="lang-result-name">JavaScript Horoscope</h3>
+                    </div>
+                    
+                    <div class="horoscope-grid">
+                        <div class="grid-card main-prediction">
+                            <h4>ดวงชะตาโดยรวมวันนี้</h4>
+                            <p id="lang-prediction-text">วันนี้วิญญาณ Callback Hell จะตามหลอกหลอน ควรหลีกเลี่ยงการเขียน nested code เกิน 3 ชั้น...</p>
+                        </div>
+                        <div class="grid-card magic-stats">
+                            <h4>วิถีพลังนำโชคประจำวัน</h4>
+                            <ul class="stats-list">
+                                <li>
+                                    <span class="stat-name"><i class="fa-solid fa-palette"></i> สีนำโชค (Lucky Hex):</span>
+                                    <span class="stat-val"><code id="lucky-color-hex">#06B6D4</code> <span class="color-preview" id="lucky-color-preview"></span></span>
+                                </li>
+                                <li>
+                                    <span class="stat-name"><i class="fa-solid fa-moon"></i> ธีม IDE นำโชค:</span>
+                                    <span class="stat-val" id="lucky-ide-theme">SynthWave '84</span>
+                                </li>
+                                <li>
+                                    <span class="stat-name"><i class="fa-solid fa-mug-hot"></i> เครื่องดื่มเสริมพลัง:</span>
+                                    <span class="stat-val" id="lucky-drink">Matcha Latte Double Shot</span>
+                                </li>
+                                <li>
+                                    <span class="stat-name"><i class="fa-solid fa-skull-crossbones"></i> คำเตือนสิ่งกาลกิณี:</span>
+                                    <span class="stat-val danger-text" id="bad-warning">การกด Deploy ด่วนตอนบ่าย 4 โมงวันศุกร์</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Bug Crystal Ball (Q&A) -->
+            <section id="crystal-tab" class="tab-content">
+                <div class="section-intro">
+                    <h2>ลูกแก้วบั๊กวิเศษ (Bug Crystal Ball)</h2>
+                    <p>หากคุณมีปัญหาคาใจเรื่องโค้ด เรื่องหัวหน้างาน หรือเซิร์ฟเวอร์พัง ให้ตั้งจิตอธิษฐานแล้วป้อนคำถามลงในลูกแก้ว...</p>
+                </div>
+
+                <div class="crystal-ball-area">
+                    <div class="crystal-ball-wrapper">
+                        <div class="ball-glow"></div>
+                        <div class="crystal-ball" id="crystal-ball-interactive">
+                            <div class="crystal-content">
+                                <div class="ball-reflection"></div>
+                                <div id="crystal-text" class="crystal-text-disp">ตั้งคำถามแล้วกดแตะที่นี่</div>
+                                <div class="ball-particles" id="ball-particles"></div>
+                            </div>
+                        </div>
+                        <div class="ball-stand"></div>
+                    </div>
+
+                    <div class="crystal-inputs">
+                        <div class="form-group">
+                            <input type="text" id="question-input" placeholder="เช่น โค้ดที่รันไม่ผ่านเมื่อกี้เป็นเพราะอะไร?, จะได้เลิกงานกี่โมง?" class="magic-input" maxlength="100">
+                        </div>
+                        <button id="ask-ball-btn" class="magic-btn">
+                            <i class="fa-solid fa-wand-magic"></i> อธิษฐานถามลูกแก้ว
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>สร้างด้วยเวทมนตร์ ความรัก และบั๊กนับร้อยกระบวนท่า &copy; 2026 พ่อมดโค้ดดิ้ง (The Coding Oracle)</p>
+            <p class="disclaimer">คำทำนายเป็นเพียงเรื่องสมมติเพื่อความบันเทิงและการสร้างขวัญกำลังใจในการแก้โค้ดเท่านั้น โปรดใช้วิจารณญาณก่อนกด Git Push</p>
+        </footer>
+    </div>
+
+    <!-- Custom Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
